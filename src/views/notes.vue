@@ -4,7 +4,9 @@
         <section id="notes-page">
             <h2>Notes</h2>
 
-            <ul class="note-list">
+            <h2 v-if="note_store.loading">Cargando...</h2>
+            <h2 v-else-if="note_store.error">Algo ha ido mal :(</h2>
+            <ul class="note-list" v-else>
                 <li class="title">
                     <CreateNote/>
                 </li>
@@ -21,12 +23,18 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import CreateNote from '../components/Create-note.vue';
 import HeaderComponent from '../components/Header-component.vue';
 import NoteCard from '../components/NoteCard.vue';
 import { useNoteStore } from '../stores/note_store';
 
     const note_store = useNoteStore();
+
+    // cuando se monte la vista, llamaremos a la funcion getNOtes y esa funcion hará una petición a la API para obtrener los datos
+    onMounted(async () => {
+        await note_store.getNotes();
+    })
 
 </script>
 
