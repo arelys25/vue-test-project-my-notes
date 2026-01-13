@@ -5,8 +5,14 @@
             <h2>Notes</h2>
 
             <ul class="note-list">
+                <li class="title">
+                    <CreateNote/>
+                </li>
                 <li v-for="note in note_store.notes" :key="note.id" class="title">
                     <NoteCard :note="note"/>
+                </li>
+                <li v-if="!note_store.notes.length" class="empty-msg">
+                    <h2>No hay nada que mostrar. ¡Crea tu primera Nota!</h2>
                 </li>
             </ul>
         </section>
@@ -15,6 +21,7 @@
 </template>
 
 <script setup>
+import CreateNote from '../components/Create-note.vue';
 import HeaderComponent from '../components/Header-component.vue';
 import NoteCard from '../components/NoteCard.vue';
 import { useNoteStore } from '../stores/note_store';
@@ -45,6 +52,11 @@ import { useNoteStore } from '../stores/note_store';
             flex-direction: column;
             align-items: center;
             gap: 20px;
+
+            .empty-msg{
+                text-align: center;
+                font-size: 1.5rem;
+            }
         }
     }
 </style>

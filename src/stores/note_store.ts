@@ -3,20 +3,32 @@ import { ref } from "vue";
 
 // argumento 1: nombre de la store, Argumento 2: las cosas que vamos a exportar
 export const useNoteStore = defineStore('notes', () => {
-    const notes = ref([
-        {
-            id: '1',
-            title: 'Ir al doctor',
+
+    interface Note {
+        id: string;
+        title: string;
+        marked: boolean;
+    }
+
+    const notes = ref<Note[]>([]);
+
+    const createId = () => {
+        return Date.now().toString(36) + Math.random().toString(36).slice(2)
+    }
+
+    const addNote = (title: string) => {
+        notes.value.unshift({
+            id: createId(),
+            title: title,
             marked: false
-        },
-        {
-            id: '2',
-            title: 'Contraseña del wifi: 23456',
-            marked: false
-        },
-    ]);
+        })
+    };
 
     return {
         notes,
+        addNote
     };
-})
+}, {
+    // hacer que persista la información en el servidor local
+    persist: true
+});

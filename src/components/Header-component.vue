@@ -5,11 +5,11 @@
 
             <nav>
                 <ul class="nav-list">
-                    <li class="link">
-                        <router-link to="/">Home</router-link>
+                    <li>
+                        <router-link to="/" class="link">Home</router-link>
                     </li>
-                    <li class="link">
-                        <router-link to="/notes">Notes</router-link>
+                    <li>
+                        <router-link to="/notes" class="link">Notes</router-link>
                     </li>
                 </ul>
             </nav>
